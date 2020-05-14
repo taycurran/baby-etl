@@ -21,6 +21,7 @@ ORDER BY `id`;"""
 mycursor.execute(Q)
 
 result = mycursor.fetchone()
+
 print(result)
 
 sauti_db.close()
