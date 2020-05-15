@@ -24,18 +24,16 @@ def create_prices_raw():
                     CREATE TABLE IF NOT EXISTS prices_raw (
                         id_sauti INTEGER,
                         source VARCHAR(200),
-                        country VARCHAR(5),
+                        country VARCHAR(50),
                         market VARCHAR(25),
                         product_cat VARCHAR(50),
                         product_agg VARCHAR(50),
                         product VARCHAR(50),
-                        date VARCHAR(50),
                         retail INTEGER,
                         wholesale INTEGER,
-                        currency VARCHAR(5),
-                        unit VARCHAR(5),
-                        active VARCHAR(5),
-                        udate VARCHAR(5)
+                        currency VARCHAR(50),
+                        unit VARCHAR(50),
+                        active VARCHAR(50)
                     );
                     """
     labs_curs.execute(create_table_Q)
@@ -72,3 +70,21 @@ if __name__ == "__main__":
     labs_conn.close()
     print("PostgreSQL labs_connection is closed.") 
 
+# create_table_Q = """
+#                 CREATE TABLE IF NOT EXISTS prices_raw (
+#                     id_sauti INTEGER,
+#                     source VARCHAR(200),
+#                     country VARCHAR(5),
+#                     market VARCHAR(25),
+#                     product_cat VARCHAR(50),
+#                     product_agg VARCHAR(50),
+#                     product VARCHAR(50),
+#                     date TIMESTAMP,
+#                     retail INTEGER,
+#                     wholesale INTEGER,
+#                     currency VARCHAR(5),
+#                     unit VARCHAR(5),
+#                     active VARCHAR(5),
+#                     udate VARCHAR(5)
+#                 );
+#                 """

@@ -1,5 +1,6 @@
 # For Sauti MySQL Database
 import mysql.connector
+from practice import Q5
 
 # For labs_curs PostgreSQL Database
 import urllib.parse as up
@@ -46,7 +47,7 @@ create_prices_raw()
 
 Q = """SELECT * FROM `platform_market_prices2`;"""
 
-sauti_curs.execute(Q)
+sauti_curs.execute(Q5)
 
 rows = sauti_curs.fetchall()
 
@@ -54,8 +55,8 @@ for row in rows:
     insert_row = """
     INSERT INTO prices_raw
     (id_sauti, source, country, market, product_cat,
-    product_agg, product, date, retail, wholesale,
-    currency, unit, active, udate) 
+    product_agg, product, retail, wholesale,
+    currency, unit, active) 
     VALUES""" + str(row) + """;"""
     labs_curs.execute(insert_row)
 
