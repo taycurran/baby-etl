@@ -44,9 +44,23 @@ Q5 = """SELECT id,
 
 sauti_curs.execute(Q5)
 
+rows = sauti_curs.fetchmany(2)
 
-result = sauti_curs.fetchmany(5)
+for row in rows:
+  insert_row = """
+  INSERT INTO prices_raw
+  (id_sauti, source, country, market, product_cat,
+  product_agg, product, retail, wholesale,
+  currency, unit, active) 
+  VALUES""" + str(row) + """;"""
+  print(insert_row)
 
-print(result)
 
-sauti_conn.close()
+
+# from DateTime import Timezones
+
+# result = sauti_curs.fetchmany(5)
+
+# print(result)
+
+# sauti_conn.close()

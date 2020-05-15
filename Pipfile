@@ -9,6 +9,7 @@ verify_ssl = true
 mysql-connector-python = "*"
 python-dotenv = "*"
 psycopg2-binary = "*"
+datetime = "*"
 
 [requires]
 python_version = "3.8"

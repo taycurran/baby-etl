@@ -1,6 +1,5 @@
 # For Sauti MySQL Database
 import mysql.connector
-from practice import Q5
 
 # For labs_curs PostgreSQL Database
 import urllib.parse as up
@@ -22,7 +21,7 @@ sauti_conn = mysql.connector.connect(
   database=os.environ["MYSQL_DATABASE"]
 )
 
-sauti_curs = sauti_conn.cursor()
+sauti_curs = sauti_conn.cursor(buffered=True)
 
 # --- labs_curs DB Connection ---
 
@@ -45,27 +44,36 @@ create_prices_raw()
 
 # ---
 
-Q = """SELECT * FROM `platform_market_prices2`;"""
+Q = """SELECT id, 
+        source,
+        country,
+        market,
+        product_cat,
+        product_agg,
+        product,
+        retail,
+        wholesale,
+        currency,
+        unit,
+        active
+        from platform_market_prices2;
+     """
 
-sauti_curs.execute(Q5)
+sauti_curs.execute(Q)
 
-rows = sauti_curs.fetchall()
+rows = sauti_curs.fetchmany(10)
 
 for row in rows:
-    insert_row = """
-    INSERT INTO prices_raw
-    (id_sauti, source, country, market, product_cat,
-    product_agg, product, retail, wholesale,
-    currency, unit, active) 
-    VALUES""" + str(row) + """;"""
-    labs_curs.execute(insert_row)
+  insert_row = """
+  INSERT INTO prices_raw
+  (id_sauti, source, country, market, product_cat,
+  product_agg, product, retail, wholesale,
+  currency, unit, active) VALUES """ + str(row) + """;"""
+  labs_curs.execute(insert_row)
 
-labs_curs.commit()
 
-print("\n prices_raw.head()\n")
-Q2 = """SELECT * FROM prices_raw LIMIT 10"""
-labs_curs.execute(Q2)
-print(labs_curs.fetchall())
+
+labs_conn.commit()
 
 labs_curs.close()
 labs_conn.close()
