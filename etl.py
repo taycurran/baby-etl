@@ -21,6 +21,8 @@ sauti_conn = mysql.connector.connect(
   database=os.environ["MYSQL_DATABASE"]
 )
 
+# buffered=True made this script finally work
+# ?-- Not sure exactly what it did though --?
 sauti_curs = sauti_conn.cursor(buffered=True)
 
 # --- labs_curs DB Connection ---
@@ -44,20 +46,7 @@ create_prices_raw()
 
 # ---
 
-Q = """SELECT id, 
-        source,
-        country,
-        market,
-        product_cat,
-        product_agg,
-        product,
-        retail,
-        wholesale,
-        currency,
-        unit,
-        active
-        from platform_market_prices2;
-     """
+Q = """SELECT * FROM platform_market_prices2;"""
 
 sauti_curs.execute(Q)
 
@@ -67,9 +56,28 @@ for row in rows:
   insert_row = """
   INSERT INTO prices_raw
   (id_sauti, source, country, market, product_cat,
-  product_agg, product, retail, wholesale,
-  currency, unit, active) VALUES """ + str(row) + """;"""
-  labs_curs.execute(insert_row)
+  product_agg, product, date, retail, wholesale,
+  currency, unit, active, udate) VALUES 
+  (%(id_sauti)s, %(source)s, %(country)s, %(market)s, %(product_cat)s, 
+  %(product_agg)s, %(product)s, %(date)s, %(retail)s, %(wholesale)s, 
+  %(currency)s, %(unit)s, %(active)s, %(udate)s);"""
+
+  vals = {'id_sauti': row[0],
+          'source': row[1],
+          'country': row[2],
+          'market': row[3],
+          'product_cat': row[4],
+          'product_agg': row[5],
+          'product': row[6],
+          'date': row[7],
+          'retail': row[8],
+          'wholesale': row[9],
+          'currency': row[10],
+          'unit': row[11],
+          'active': row[12],
+          'udate': row[13]
+         }
+  labs_curs.execute(insert_row, vals)
 
 
 

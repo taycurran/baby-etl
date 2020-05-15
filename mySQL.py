@@ -19,7 +19,7 @@ Q = """SELECT * FROM platform_market_prices2;"""
 sauti_curs.execute(Q)
 
 
-result = sauti_curs.fetchone()
+result = sauti_curs.fetchmany(10)
 
 print(result)
 

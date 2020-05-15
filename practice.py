@@ -51,9 +51,9 @@ for row in rows:
   INSERT INTO prices_raw
   (id_sauti, source, country, market, product_cat,
   product_agg, product, retail, wholesale,
-  currency, unit, active) 
-  VALUES""" + str(row) + """;"""
+  currency, unit, active) VALUES """ + str(row) + """;"""
   print(insert_row)
+  labs_curs()
 
 
 

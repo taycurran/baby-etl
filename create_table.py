@@ -29,11 +29,13 @@ def create_prices_raw():
                         product_cat VARCHAR(50),
                         product_agg VARCHAR(50),
                         product VARCHAR(50),
+                        date TIMESTAMP,
                         retail INTEGER,
                         wholesale INTEGER,
                         currency VARCHAR(50),
                         unit VARCHAR(50),
-                        active VARCHAR(50)
+                        active VARCHAR(50),
+                        udate TIMESTAMP
                     );
                     """
     labs_curs.execute(create_table_Q)
