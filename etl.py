@@ -46,12 +46,24 @@ create_prices_raw()
 
 # ---
 
+
+
+Q_count = """SELECT COUNT(id) 
+             FROM platform_market_prices2
+             WHERE id;"""
+sauti_curs.execute(Q_count)
+count = sauti_curs.fetchone()[0]
+
+
 Q = """SELECT * FROM platform_market_prices2;"""
+print("1")
 
-sauti_curs.execute(Q)
-
-rows = sauti_curs.fetchmany(10)
-
+sauti_curs_rows = sauti_conn.cursor('cursor_unique_name')
+print("2")
+sauti_curs_rows.execute(Q)
+print("3")
+rows = sauti_curs_rows.fetchall()
+print("4")
 for row in rows:
   insert_row = """
   INSERT INTO prices_raw
@@ -78,16 +90,17 @@ for row in rows:
           'udate': row[13]
          }
   labs_curs.execute(insert_row, vals)
+  labs_conn.commit()
 
 
-
+print("5")
 labs_conn.commit()
 
 labs_curs.close()
 labs_conn.close()
 
 print("DS DB Connection Closed.")
-
+sauti_curs_rows.close()
 sauti_curs.close()
 sauti_conn.close()
 

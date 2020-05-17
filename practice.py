@@ -42,25 +42,26 @@ Q5 = """SELECT id,
         from platform_market_prices2;
      """
 
-sauti_curs.execute(Q5)
+# sauti_curs.execute(Q5)
 
-rows = sauti_curs.fetchmany(2)
+# rows = sauti_curs.fetchmany(2)
 
-for row in rows:
-  insert_row = """
-  INSERT INTO prices_raw
-  (id_sauti, source, country, market, product_cat,
-  product_agg, product, retail, wholesale,
-  currency, unit, active) VALUES """ + str(row) + """;"""
-  print(insert_row)
-  labs_curs()
+# for row in rows:
+#   insert_row = """
+#   INSERT INTO prices_raw
+#   (id_sauti, source, country, market, product_cat,
+#   product_agg, product, retail, wholesale,
+#   currency, unit, active) VALUES """ + str(row) + """;"""
+#   print(insert_row)
+#   labs_curs()
+
+Q_count = """SELECT COUNT(id) 
+             FROM platform_market_prices2
+             WHERE id;"""
+sauti_curs.execute(Q_count)
+count = sauti_curs.fetchone()[0]
 
 
+print(count)
 
-# from DateTime import Timezones
-
-# result = sauti_curs.fetchmany(5)
-
-# print(result)
-
-# sauti_conn.close()
+sauti_conn.close()
